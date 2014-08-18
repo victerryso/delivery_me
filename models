@@ -1,0 +1,38 @@
+User
+  Has_Many Tasks
+  Has_Many Messages
+  - Name
+  - Password
+  - Suburb
+  - Image
+  - Current_lat
+  - Current_lng
+  - Credibility
+
+Task
+  Belongs_To User
+  Has_Many Messages
+  - Name
+  - Specific
+  - Time
+  - Price
+  - From_name
+  - From_lat
+  - From_lng
+  - To_name
+  - To_lat
+  - To_lng
+  - Client_id
+  - Courier_id
+
+Messages
+  Belongs_To User
+  Belongs_To Task
+  - User_id
+  - Task_id
+  - Content
+
+
+API
+  - Google Maps
+  - Google Places

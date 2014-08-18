@@ -7,6 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<header>
+  <h1>Deliver Me</h1>
+  <div id='login_form'>
+    <%= render :partial => "/shared/login" %>
+  </div>
+</header>
 
 <%= yield %>
 

@@ -1,0 +1,99 @@
+<div id='left'>
+
+  <!-- <button id='new_task_button'>New Task</button> -->
+  <div id='show_box'>
+    <% if @current_user %>
+
+      <div id='new_task_form'>
+        <%= form_for @new_task, :remote => true do |f| %>
+
+          <p>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </p>
+
+          <p>
+            <%= f.label :description %>
+            <%= f.text_field :description %>
+          </p>
+
+          <p>
+            <%= f.label :time %>
+            <%= f.time_field :time %>
+          </p>
+
+          <p>
+            <%= f.label :price %>
+            <%= f.number_field :price %>
+          </p>
+
+          <p>
+            <%= f.label :from_address %>
+            <%= f.text_field :from_address %>
+          </p>
+
+          <p>
+            <%= f.label :to_address %>
+            <%= f.text_field :to_address %>
+          </p>
+
+          <%= f.submit %>
+        <% end %>
+      </div>
+
+    <% else %>
+
+      <div id='task_box'>
+        <%= image_tag 'https://cdn2.iconfinder.com/data/icons/color-svg-cloud-icons/512/cloud_delivery-512.png', :id => 'default_task_box' %>
+      </div>
+    <% end %>
+  </div>
+
+  <% @tasks.each do |task| %>
+    <div class='task' id='task_<%= task.id %>'>
+      <p>
+        <%= image_tag task.user.image, :class => 'task_icon' %>
+        <strong><%= task.name %></strong>
+
+        <% if task.price %>
+          $<%= task.price %>
+        <% else %>
+          FREE
+        <% end %>
+        <br>
+
+        From: <%= task.from_address %><br>
+        To: <%=task.to_address %>
+
+<!--         <div id='task_id' class='invisible'><%= task.id %></div>
+        <div id='task_user_id' class='invisible'><%= task.user_id %></div>
+        <div id='task_courier_id' class='invisible'><%= task.courier_id %></div>
+        <div id='task_name' class='invisible'><%= task.name %></div>
+        <div id='task_description' class='invisible'><%= task.description %></div>
+        <div id='task_time' class='invisible'><%= task.time %></div>
+        <div id='task_price' class='invisible'><%= task.price %></div>
+        <div id='task_from_address' class='invisible'><%= task.from_address %></div>
+        <div id='task_from_lat' class='invisible'><%= task.from_lat %></div>
+        <div id='task_from_lng' class='invisible'><%= task.from_lng %></div>
+        <div id='task_to_address' class='invisible'><%= task.to_address %></div>
+        <div id='task_to_lat' class='invisible'><%= task.to_lat %></div>
+        <div id='task_to_lng' class='invisible'><%= task.to_lng %></div> -->
+
+      </p>
+    </div>
+  <% end %>
+
+</div>
+
+<div id='map_canvas'>
+</div>
+
+<%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyAAiCRdJuc3KbZmfKzLhPkm4DAoG5-7lcA" %>
+
+<script>
+  $(document).ready(function () {
+    <% @tasks.each do |task| %>
+      add_marker(<%= task.from_lat %>, <%= task.from_lng %>, '<%= task.name %>');
+    <% end %>
+  });
+</script>

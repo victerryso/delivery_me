@@ -1,0 +1,66 @@
+.invisible {
+  display: none;
+}
+
+header h1 {
+  display: inline-block;
+  width: 1200px;
+  font-size: 3em;
+}
+
+header #login_form {
+  display: inline-block;
+  vertical-align: top;
+}
+
+header #login_form label {
+  width: 64px;
+  display: inline-block;
+}
+
+#left, #map_canvas {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#left {
+  width: 300px
+}
+
+#map_canvas {
+  height: 650px;
+  width: 1020px;
+}
+
+.task {
+  border: 1px solid black;
+}
+
+.task_icon {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  float: left;
+  margin-right: 0.5em;
+}
+
+#show_box {
+  border: 1px solid black;
+  width: 298px;
+  height: 298px;
+}
+
+#new_task_form label {
+  width: 96px;
+  display: inline-block;
+}
+
+#default_task_box {
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.task {
+  cursor: pointer;
+}
