@@ -18,6 +18,26 @@ $(document).ready(function () {
     add_marker(task.from_lat, task.from_lng, task.name)
   });
 
+  $('.task').click(function () {
+    var id = this.id;
+
+    $.ajax({
+      url: '/tasks/' + id,
+      dataType: 'json'
+    }).done(function (task) {
+      $('#new_task_form').hide();
+      $('#task_box').empty();
+      var text = '<h2>' + task.name + '</h2>'
+      text += '<p><strong>Description: <strong>' + task.description + '</p>'
+      text += '<h3>$' + task.price + '</h3>'
+      text += task.from_address
+      text += "<button id='new_task_button'>New Task</button>"
+      $('#task_box').append(text)
+    });
+  });
+
+
+
 
 });
 
@@ -49,3 +69,4 @@ var add_marker = function (lat, lng, title) {
     title: title
   });
 };
+

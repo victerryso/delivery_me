@@ -1,6 +1,5 @@
 <div id='left'>
 
-  <!-- <button id='new_task_button'>New Task</button> -->
   <div id='show_box'>
     <% if @current_user %>
 
@@ -40,7 +39,8 @@
           <%= f.submit %>
         <% end %>
       </div>
-
+      <div id='task_box'>
+      </div>
     <% else %>
 
       <div id='task_box'>
@@ -50,7 +50,7 @@
   </div>
 
   <% @tasks.each do |task| %>
-    <div class='task' id='task_<%= task.id %>'>
+    <div class='task' id='<%= task.id %>'>
       <p>
         <%= image_tag task.user.image, :class => 'task_icon' %>
         <strong><%= task.name %></strong>
@@ -64,20 +64,6 @@
 
         From: <%= task.from_address %><br>
         To: <%=task.to_address %>
-
-<!--         <div id='task_id' class='invisible'><%= task.id %></div>
-        <div id='task_user_id' class='invisible'><%= task.user_id %></div>
-        <div id='task_courier_id' class='invisible'><%= task.courier_id %></div>
-        <div id='task_name' class='invisible'><%= task.name %></div>
-        <div id='task_description' class='invisible'><%= task.description %></div>
-        <div id='task_time' class='invisible'><%= task.time %></div>
-        <div id='task_price' class='invisible'><%= task.price %></div>
-        <div id='task_from_address' class='invisible'><%= task.from_address %></div>
-        <div id='task_from_lat' class='invisible'><%= task.from_lat %></div>
-        <div id='task_from_lng' class='invisible'><%= task.from_lng %></div>
-        <div id='task_to_address' class='invisible'><%= task.to_address %></div>
-        <div id='task_to_lat' class='invisible'><%= task.to_lat %></div>
-        <div id='task_to_lng' class='invisible'><%= task.to_lng %></div> -->
 
       </p>
     </div>
