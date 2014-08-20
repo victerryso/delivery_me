@@ -8,12 +8,12 @@ $(document).ready(function () {
   $('#new_task_button').click(newTaskShow);
 
 //
-  if ($('#my_location')) {
+  if ($('#my_location').text() === '') {
+    display_map(-33.87, 151.21, 12);
+  } else {
     var myLatitude = $('#my_latitude').text();
     var myLongitude = $('#my_longitude').text();
     display_map(myLatitude, myLongitude, 12);
-  } else {
-    display_map(-33.87, 151.21, 12);
   }
 
 //
@@ -32,12 +32,12 @@ $(document).ready(function () {
     }).done(function (json) {
       $('#new_task_form').hide();
       $('#task_box').empty();
-      $('#messages_box').empty();
 
       task = json.task
       messages = json.messages
 
       var distance = Math.sqrt(Math.pow(task.from_lat - task.to_lat, 2) + Math.pow(task.from_lng - task.to_lng, 2)) * 100;
+      var rate = Math.floor(task.price / distance);
       if (distance > 1) {
         distance = Math.floor(distance);
         distance += 'km'
@@ -57,20 +57,53 @@ $(document).ready(function () {
       text += '<p><strong>Description: </strong>' + task.description + '</p>'
       text += '<p><strong>From: ' + task.from_name + '</strong><br>' + task.from_address + '</p>'
       text += '<p><strong>To: ' + task.to_name + '</strong><br>' + task.to_address + '</p>'
-      text += '<h3>$' + task.price + '</h3>'
+      text += '<p><strong>Reward:</strong> $' + task.price + '</p>'
       text += '<p><strong>Distance:</strong> ' + distance + '</p>'
+      text += '<p><strong>Rate:</strong> $' + rate + '/km</p>'
       $('#task_box').append(text);
 
       $('.take_job').click(takeJob);
 
-      text = '';
-      for (i = 0; i < messages.length; i++) {
-        text += "<p><img class='message_icon' src='" + messages[i].user.image + "'><strong>" + messages[i].user.name + ': </strong>' + messages[i].content; + '</p>'
-      }
-      $('#messages_box').append(text);
+      var renderMessages = function () {
+
+        text = '<table>';
+        for (i = 0; i < messages.length; i++) {
+          text += '<tr>'
+          text += "<td><img class='message_icon' src='" + messages[i].user.image + "'>"
+          text += "<td><p><strong>" + messages[i].user.name + '</strong><br>'
+          text += messages[i].content + '</p>'
+        }
+        text += '</table>'
+
+        if ($('#my_location').text() !== '') {
+          text += '<form action="/messages" method="post" data-remote="true" id="create_message">'
+          text += "<textarea cols='39' id='content' placeholder='Message...'></textarea>"
+          text += '<button>Send</button>'
+          text += '</form>'
+        };
+
+        $('#messages_box').empty();
+        $('#messages_box').append(text);
+      };
+
+      renderMessages();
+
+      $('#create_message').on('submit', function () {
+        event.preventDefault();
+        $.ajax({
+          url: '/messages',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            task_id: id,
+            content: $('#content').val()
+            }
+        }).done(function () {
+          var $taskBox = $('.task_' + id);
+          $taskBox.trigger('click');
+        });
+      });
     });
-
-
   };
 
   $('.task').click(showTask);
@@ -83,6 +116,9 @@ $(document).ready(function () {
       method: 'put'
     }).done(function (task) {
       console.log(task);
+      var text = "<div class='job_taken' id=" + task.id + ">Too late, bro!</div>"
+      $('.take_job').remove();
+      $('#task_box').prepend(text);
     });
 
   };

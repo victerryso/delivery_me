@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/tasks/search/:search' => 'tasks#search'
   put 'tasks/courier/:id' => 'tasks#courier'
 
-  resources :tasks, :users
+  resources :tasks, :users, :messages
 
   get '/login' => 'session#new'
   post '/login' => 'session#create'

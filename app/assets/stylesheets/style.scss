@@ -45,7 +45,10 @@ header #login_form label {
 }
 
 #left {
-  width: 300px
+  width: 300px;
+  max-height: 651px;
+  overflow-y: scroll;
+  border: 1px solid black;
 }
 
 #map_canvas {
@@ -54,20 +57,14 @@ header #login_form label {
   border: 1px solid black;
 }
 
-.task {
-  border: 1px solid black;
-}
-
 .task_icon {
   width: 64px;
   height: 64px;
   object-fit: cover;
-  float: left;
-  margin-right: 0.5em;
+  border: 1px solid black;
 }
 
 #show_box {
-  border: 1px solid black;
   width: 298px;
   min-height: 400px;
 }
@@ -89,6 +86,8 @@ select {
 
 .task {
   cursor: pointer;
+  display: block;
+  border-top: 1px solid black;
 }
 
 .take_job, .available {
@@ -101,6 +100,7 @@ select {
   padding: 0.5em;
   border-radius: 0.5em;
   display: inline-block;
+  vertical-align: top;
 }
 
 .job_taken, .unavailable {
@@ -111,16 +111,30 @@ select {
 #messages_box {
   border-top: 1px solid black;
 }
+
 .message_icon {
   width: 48px;
   height: 48px;
   object-fit: cover;
-  // display: inline-block;
-  float: left;
+  float: inline-block;
   margin-right: 0.5em;
+  vertical-align: top;
+  border: 1px solid black;
 }
 
-#messages_box p {
-  height: 50px;
-  line-height: 50px;
+#new_task_button {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  display: inline-block;
+  background-color: #39e;
+  color: white;
+  cursor: pointer;
+}
+
+#profilepic {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 1px solid black;
+  margin-right: 0.5em;
 }

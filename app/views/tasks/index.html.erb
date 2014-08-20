@@ -5,7 +5,7 @@
     <div id='show_box'>
 
       <% if @current_user %>
-        <button id='new_task_button'>New Task</button>
+        <div id='new_task_button'>New Task</div>
         <div id='new_task_form'>
           <%= form_for @new_task, :remote => true do |f| %>
 
@@ -90,13 +90,13 @@
 
     <% @tasks.each do |task| %>
       <% if task.courier_id %>
-        <div class='task unavailable task_<%= task.id %>' id='<%= task.id %>'>
+        <table class='task unavailable task_<%= task.id %>' id='<%= task.id %>'>
       <% else %>
-        <div class='task available task_<%= task.id %>' id='<%= task.id %>'>
+        <table class='task available task_<%= task.id %>' id='<%= task.id %>'>
       <% end %>
-        <p>
-          <%= image_tag task.user.image, :class => 'task_icon' %>
-          <strong><%= task.name %></strong>
+        <tr>
+          <td><%= image_tag task.user.image, :class => 'task_icon' %></td>
+          <td><strong><%= task.name %></strong>
 
           <% if task.price %>
             $<%= task.price %>
@@ -108,8 +108,8 @@
           From: <%= task.from_name %><br>
           To: <%=task.to_name %>
 
-        </p>
-      </div>
+        </td>
+      </table>
     <% end %>
 
   </div>

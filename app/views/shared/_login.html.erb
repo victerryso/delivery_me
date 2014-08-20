@@ -1,7 +1,11 @@
 <% if @current_user %>
 
-  <%= link_to("Hi #{@current_user.name}", user_path(@current_user)) %><br>
-  <%= link_to('Log Out', login_path, :data => {:method => :delete}) %>
+  <table>
+    <tr>
+      <td><%= image_tag @current_user.image, :id => 'profilepic' %></td>
+      <td><%= link_to("Hi #{@current_user.name}", user_path(@current_user)) %><br>
+      <%= link_to('Log Out', login_path, :data => {:method => :delete}) %></td>
+      </table>
 
 <% else %>
 
