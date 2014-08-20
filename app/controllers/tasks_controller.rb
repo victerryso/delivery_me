@@ -14,7 +14,9 @@ class TasksController < ApplicationController
   end
 
   def show
-    render :json => @task
+    @messages = Message.where(:task_id => params[:id])
+    json = {'task' => @task.as_json(:include => :user), 'messages' => @messages.as_json(:include => :user)}
+    render :json => json
   end
 
   def courier
@@ -27,7 +29,7 @@ class TasksController < ApplicationController
     search = params[:search]
     p search.gsub!(/ /, '+')
     location = "#{@current_user.latitude},#{@current_user.longitude}"
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + location + "&radius=3000&keyword=" + search +"&key=AIzaSyC62HHql2ZcJv7RsliQ1MKf1XQMgK-_esY"
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + location + "&radius=10000&keyword=" + search +"&key=AIzaSyC62HHql2ZcJv7RsliQ1MKf1XQMgK-_esY"
     response = HTTParty.get(url)
     render :json => response['results']
   end

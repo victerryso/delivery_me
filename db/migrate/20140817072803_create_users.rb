@@ -6,9 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :name, :default => 'Someone'
       t.text    :image, :default => 'http://www.fedical.com/wp-content/uploads/2014/04/Happy-face-coloring-pages.jpg'
       t.integer :credibility, :default => 0
-      t.string  :city
-      t.string  :state
-      t.string  :country
+      t.string  :address
       t.float   :latitude
       t.float   :longitude
       t.timestamps

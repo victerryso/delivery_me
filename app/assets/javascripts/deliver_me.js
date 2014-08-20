@@ -15,6 +15,7 @@ $(document).ready(function () {
   } else {
     display_map(-33.87, 151.21, 12);
   }
+
 //
 
   $('#new_task').on('ajax:success', function (event, task) {
@@ -28,9 +29,13 @@ $(document).ready(function () {
     $.ajax({
       url: '/tasks/' + id,
       dataType: 'json'
-    }).done(function (task) {
+    }).done(function (json) {
       $('#new_task_form').hide();
       $('#task_box').empty();
+      $('#messages_box').empty();
+
+      task = json.task
+      messages = json.messages
 
       var distance = Math.sqrt(Math.pow(task.from_lat - task.to_lat, 2) + Math.pow(task.from_lng - task.to_lng, 2)) * 100;
       if (distance > 1) {
@@ -47,16 +52,25 @@ $(document).ready(function () {
       } else {
         var text = "<div class='job_taken' id=" + task.id + ">Too late, bro!</div>";
       }
+
       text += '<h2>' + task.name + '</h2>'
       text += '<p><strong>Description: </strong>' + task.description + '</p>'
-
-      text += '<p><strong>From: ' + task.from_name + '</strong> - ' + task.from_address + '</p>'
-      text += '<p><strong>To: ' + task.to_name + '</strong> - ' + task.to_address + '</p>'
+      text += '<p><strong>From: ' + task.from_name + '</strong><br>' + task.from_address + '</p>'
+      text += '<p><strong>To: ' + task.to_name + '</strong><br>' + task.to_address + '</p>'
       text += '<h3>$' + task.price + '</h3>'
       text += '<p><strong>Distance:</strong> ' + distance + '</p>'
       $('#task_box').append(text);
+
       $('.take_job').click(takeJob);
+
+      text = '';
+      for (i = 0; i < messages.length; i++) {
+        text += "<p><img class='message_icon' src='" + messages[i].user.image + "'><strong>" + messages[i].user.name + ': </strong>' + messages[i].content; + '</p>'
+      }
+      $('#messages_box').append(text);
     });
+
+
   };
 
   $('.task').click(showTask);
@@ -119,8 +133,6 @@ $(document).ready(function () {
     });
   };
 
-
-
   $('#search_button').click(searchAddress);
 
 //
@@ -146,22 +158,20 @@ var display_map = function (lat, lng, zoom) {
 
 };
 
-var add_marker = function (lat, lng, title) {
+var add_marker = function (lat, lng, title, id) {
   var latlng = new google.maps.LatLng(lat, lng);
   var marker = new google.maps.Marker({
     animation: google.maps.Animation.DROP,
     position : latlng,
     map: map,
-    title: title
+    title: title,
+    id: id
   });
 
   google.maps.event.addListener(marker, 'click', function() {
-    var zoom = map.getZoom();
-    map.setZoom(zoom + 1);
     map.setCenter(marker.getPosition());
-    var title = $('*:contains("' + marker.getTitle() + '")');
-    // var this = title[4];
-    // showTask;
+    var $taskBox = $('.task_' + marker.id);
+    $taskBox.trigger('click');
   });
 };
 

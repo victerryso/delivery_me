@@ -83,13 +83,16 @@
           <%= image_tag 'https://cdn2.iconfinder.com/data/icons/color-svg-cloud-icons/512/cloud_delivery-512.png', :id => 'default_task_box' %>
         </div>
       <% end %>
+
+      <div id='messages_box'>
+      </div>
     </div>
 
     <% @tasks.each do |task| %>
       <% if task.courier_id %>
-        <div class='task unavailable' id='<%= task.id %>'>
+        <div class='task unavailable task_<%= task.id %>' id='<%= task.id %>'>
       <% else %>
-        <div class='task available' id='<%= task.id %>'>
+        <div class='task available task_<%= task.id %>' id='<%= task.id %>'>
       <% end %>
         <p>
           <%= image_tag task.user.image, :class => 'task_icon' %>
@@ -102,8 +105,8 @@
           <% end %>
           <br>
 
-          From: <%= task.from_address %><br>
-          To: <%=task.to_address %>
+          From: <%= task.from_name %><br>
+          To: <%=task.to_name %>
 
         </p>
       </div>
@@ -119,7 +122,7 @@
   <script>
     $(document).ready(function () {
       <% @tasks.each do |task| %>
-        add_marker(<%= task.from_lat %>, <%= task.from_lng %>, '<%= task.name %>');
+        add_marker(<%= task.from_lat %>, <%= task.from_lng %>, '<%= task.name %>', <%= task.id %>);
       <% end %>
     });
   </script>

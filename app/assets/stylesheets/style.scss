@@ -107,3 +107,20 @@ select {
   background-color: #FF7878;
   color: white;
 }
+
+#messages_box {
+  border-top: 1px solid black;
+}
+.message_icon {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  // display: inline-block;
+  float: left;
+  margin-right: 0.5em;
+}
+
+#messages_box p {
+  height: 50px;
+  line-height: 50px;
+}

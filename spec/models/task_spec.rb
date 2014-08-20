@@ -9,9 +9,11 @@
 #  description  :text
 #  time         :time
 #  price        :integer
+#  from_name    :string(255)
 #  from_address :string(255)
 #  from_lat     :float
 #  from_lng     :float
+#  to_name      :string(255)
 #  to_address   :string(255)
 #  to_lat       :float
 #  to_lng       :float

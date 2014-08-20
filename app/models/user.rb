@@ -8,9 +8,7 @@
 #  name            :string(255)      default("Someone")
 #  image           :text             default("http://www.fedical.com/wp-content/uploads/2014/04/Happy-face-coloring-pages.jpg")
 #  credibility     :integer          default(0)
-#  city            :string(255)
-#  state           :string(255)
-#  country         :string(255)
+#  address         :string(255)
 #  latitude        :float
 #  longitude       :float
 #  created_at      :datetime
@@ -31,8 +29,7 @@ class User < ActiveRecord::Base
   private
 
   def geocode
-    address = self.city + self.state + self.country
-    result = Geocoder.search(address).first
+    result = Geocoder.search(self.address).first
     if result.present?
       self.latitude = result.latitude
       self.longitude = result.longitude
