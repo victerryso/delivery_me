@@ -15,7 +15,7 @@ RSpec.describe UsersController, :type => :controller do
 
   describe 'POST /users' do
     before do
-      post :create, { :user => {:email => 'user@email.com', :password => 'password', :password_confirmation => 'password', :name => 'User Name'} }
+      post :create, { :user => {:email => 'user@email.com', :password => 'password', :password_confirmation => 'password', :name => 'User Name', :city => 'Sydney', :state => 'NSW', :country => 'Australia'} }
     end
 
     it 'should redirect to #index' do

@@ -7,9 +7,11 @@ class CreateTasks < ActiveRecord::Migration
       t.text    :description
       t.time    :time
       t.integer :price
+      t.string  :from_name
       t.string  :from_address
       t.float   :from_lat
       t.float   :from_lng
+      t.string  :to_name
       t.string  :to_address
       t.float   :to_lat
       t.float   :to_lng

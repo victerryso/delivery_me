@@ -1,24 +1,28 @@
 $(document).ready(function () {
 
   var newTaskShow = function () {
+    $('#task_box').empty();
     $('#new_task_form').show();
   };
 
   $('#new_task_button').click(newTaskShow);
 
 //
-
-  display_map(-33.87, 151.21, 12);
-
+  if ($('#my_location')) {
+    var myLatitude = $('#my_latitude').text();
+    var myLongitude = $('#my_longitude').text();
+    display_map(myLatitude, myLongitude, 12);
+  } else {
+    display_map(-33.87, 151.21, 12);
+  }
 //
 
   $('#new_task').on('ajax:success', function (event, task) {
     $('#new_task').get(0).reset();
-    console.log(task.name);
     add_marker(task.from_lat, task.from_lng, task.name)
   });
 
-  $('.task').click(function () {
+  var showTask = function () {
     var id = this.id;
 
     $.ajax({
@@ -27,17 +31,99 @@ $(document).ready(function () {
     }).done(function (task) {
       $('#new_task_form').hide();
       $('#task_box').empty();
-      var text = '<h2>' + task.name + '</h2>'
-      text += '<p><strong>Description: <strong>' + task.description + '</p>'
+
+      var distance = Math.sqrt(Math.pow(task.from_lat - task.to_lat, 2) + Math.pow(task.from_lng - task.to_lng, 2)) * 100;
+      if (distance > 1) {
+        distance = Math.floor(distance);
+        distance += 'km'
+      } else {
+        distance *= 1000
+        distance = Math.floor(distance);
+        distance += 'm'
+      }
+
+      if (task.courier_id == undefined) {
+        var text = "<div class='take_job' id=" + task.id + ">I can be your hero baby!</div>";
+      } else {
+        var text = "<div class='job_taken' id=" + task.id + ">Too late, bro!</div>";
+      }
+      text += '<h2>' + task.name + '</h2>'
+      text += '<p><strong>Description: </strong>' + task.description + '</p>'
+
+      text += '<p><strong>From: ' + task.from_name + '</strong> - ' + task.from_address + '</p>'
+      text += '<p><strong>To: ' + task.to_name + '</strong> - ' + task.to_address + '</p>'
       text += '<h3>$' + task.price + '</h3>'
-      text += task.from_address
-      text += "<button id='new_task_button'>New Task</button>"
-      $('#task_box').append(text)
+      text += '<p><strong>Distance:</strong> ' + distance + '</p>'
+      $('#task_box').append(text);
+      $('.take_job').click(takeJob);
     });
-  });
+  };
+
+  $('.task').click(showTask);
+
+  var takeJob = function () {
+    var taskId = $(this).attr('id');
+    $.ajax({
+      url: '/tasks/courier/' + taskId,
+      dataType: 'json',
+      method: 'put'
+    }).done(function (task) {
+      console.log(task);
+    });
+
+  };
+
+// My Location
+
+  var useMyLocation = function () {
+    event.preventDefault();
+    var myLocation = $('#my_location').text();
+    $('#task_to_name').val('Home');
+    $('#task_to_address').val(myLocation);
+  };
+
+  $('#use_my_location').click(useMyLocation);
+
+// Search Query
+
+  var searchAddress = function () {
+    event.preventDefault();
+    var location = $('#my_location').text();
+    var from_address = $('#search_input').val();
+
+    var url = '/tasks/search/' + from_address
+    var places;
+
+    $.ajax({
+      url: url,
+      dataType: 'json',
+    }).done(function (search) {
+      places = search;
+
+      $('#places_blank').text('...Results');
+      $('#places_blank').val('');
+      for (i = 0; i < 5; i++) {
+        $('#places_' + i).text(places[i]['name'])
+        $('#places_' + i).val(places[i]['vicinity'])
+      };
+
+      var autoFillOption = function () {
+        var name = $('#search_results option:selected').text();
+        console.log(name);
+        var address = $('#search_results').val();
+        $('#task_from_name').val(name);
+        $('#task_from_address').val(address);
+      };
+
+      $('#search_results').on('change', autoFillOption);
+    });
+  };
 
 
 
+  $('#search_button').click(searchAddress);
+
+//
 
 });
 
@@ -67,6 +153,15 @@ var add_marker = function (lat, lng, title) {
     position : latlng,
     map: map,
     title: title
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    var zoom = map.getZoom();
+    map.setZoom(zoom + 1);
+    map.setCenter(marker.getPosition());
+    var title = $('*:contains("' + marker.getTitle() + '")');
+    // var this = title[4];
+    // showTask;
   });
 };
 

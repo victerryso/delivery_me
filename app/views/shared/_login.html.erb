@@ -1,22 +1,19 @@
 <% if @current_user %>
 
-  <h4>Hi <%= @current_user.name %></h4>
-  <p><%= link_to('View Profile', user_path(@current_user)) %></p>
-  <p><%= link_to('Log Out', login_path, :data => {:method => :delete}) %></p>
+  <%= link_to("Hi #{@current_user.name}", user_path(@current_user)) %><br>
+  <%= link_to('Log Out', login_path, :data => {:method => :delete}) %>
 
 <% else %>
 
   <%= form_tag '/login' do %>
-    <p>
-      <%= label_tag 'email' %>
-      <%= text_field_tag 'email', nil %>
-      <br>
-      <%= label_tag 'password' %>
-      <%= password_field_tag 'password' %>
-      <br>
-      <%= submit_tag 'Login', :id => "login_form_button"%>
-      <%= link_to('Sign Up', new_user_path) %>
-    </p>
+    <%= label_tag 'email' %>
+    <%= text_field_tag 'email', nil %>
+    <br>
+    <%= label_tag 'password' %>
+    <%= password_field_tag 'password' %>
+    <br>
+    <%= submit_tag 'Login', :id => "login_form_button"%>
+    <%= link_to('Sign Up', new_user_path) %>
   <% end %>
   </div>
 

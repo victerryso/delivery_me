@@ -1,11 +1,32 @@
+#container {
+  margin: auto;
+}
+
+a {
+  color: #81D8D0;
+  color: #09c;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .invisible {
   display: none;
+}
+
+header {
+  border-bottom: 1px solid #ccc;
+  // -webkit-box-shadow: 0 8px 6px -6px black;
+  //    -moz-box-shadow: 0 8px 6px -6px black;
+  //         box-shadow: 0 8px 6px -6px black;
+  margin-bottom: 1em;
 }
 
 header h1 {
   display: inline-block;
   width: 1200px;
-  font-size: 3em;
 }
 
 header #login_form {
@@ -30,6 +51,7 @@ header #login_form label {
 #map_canvas {
   height: 650px;
   width: 1020px;
+  border: 1px solid black;
 }
 
 .task {
@@ -47,7 +69,7 @@ header #login_form label {
 #show_box {
   border: 1px solid black;
   width: 298px;
-  height: 298px;
+  min-height: 400px;
 }
 
 #new_task_form label {
@@ -55,12 +77,33 @@ header #login_form label {
   display: inline-block;
 }
 
+select {
+  width: 123px;
+}
+
 #default_task_box {
   object-fit: cover;
   width: 300px;
-  height: 300px;
+  height: 400px;
 }
 
 .task {
   cursor: pointer;
+}
+
+.take_job, .available {
+  background-color: #81D8CF;
+  color: white;
+  cursor: pointer;
+}
+
+.take_job, .job_taken {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  display: inline-block;
+}
+
+.job_taken, .unavailable {
+  background-color: #FF7878;
+  color: white;
 }

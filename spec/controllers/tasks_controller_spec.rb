@@ -28,7 +28,7 @@ RSpec.describe TasksController, :type => :controller do
 
   describe 'POST /tasks' do
     before do
-      post :create, { :task => {:name => 'Task Name'} }
+      post :create, { :task => {:name => 'Task Name'}, :from_address => '56 York St Sydney NSW' }
       @current_user = User.new
     end
 
