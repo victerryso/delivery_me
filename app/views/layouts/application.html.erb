@@ -5,10 +5,17 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <header>
-  <h1>Deliver Me</h1>
+  <a href='/'>
+    <h1>
+      <i class="fa fa-paper-plane"></i>
+      Deliver Me
+      <span>For lazy chumps</span>
+    </h1>
+  </a>
   <div id='login_form'>
     <%= render :partial => "/shared/login" %>
   </div>

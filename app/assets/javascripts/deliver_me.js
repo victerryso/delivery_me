@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+// Render New Task
+
   var newTaskShow = function () {
     $('#task_box').empty();
     $('#new_task_form').show();
@@ -7,7 +9,8 @@ $(document).ready(function () {
 
   $('#new_task_button').click(newTaskShow);
 
-//
+// Display the map where the current user is
+
   if ($('#my_location').text() === '') {
     display_map(-33.87, 151.21, 12);
   } else {
@@ -16,12 +19,14 @@ $(document).ready(function () {
     display_map(myLatitude, myLongitude, 12);
   }
 
-//
+// Add Markers to Map when you create it
 
   $('#new_task').on('ajax:success', function (event, task) {
     $('#new_task').get(0).reset();
-    add_marker(task.from_lat, task.from_lng, task.name)
+    add_marker(task.from_lat, task.from_lng, task.name);
   });
+
+// when you click on a task box, it shows you the details
 
   var showTask = function () {
     var id = this.id;
@@ -36,6 +41,8 @@ $(document).ready(function () {
       task = json.task
       messages = json.messages
 
+// Calculating Distance and Rate from Lat + Lng
+
       var distance = Math.sqrt(Math.pow(task.from_lat - task.to_lat, 2) + Math.pow(task.from_lng - task.to_lng, 2)) * 100;
       var rate = Math.floor(task.price / distance);
       if (distance > 1) {
@@ -47,11 +54,15 @@ $(document).ready(function () {
         distance += 'm'
       }
 
+// See if the task is taken or not
+
       if (task.courier_id == undefined) {
         var text = "<div class='take_job' id=" + task.id + ">I can be your hero baby!</div>";
       } else {
         var text = "<div class='job_taken' id=" + task.id + ">Too late, bro!</div>";
       }
+
+// Text to append to show
 
       text += '<h2>' + task.name + '</h2>'
       text += '<p><strong>Description: </strong>' + task.description + '</p>'
@@ -63,6 +74,8 @@ $(document).ready(function () {
       $('#task_box').append(text);
 
       $('.take_job').click(takeJob);
+
+// See the messages displayed
 
       var renderMessages = function () {
 
@@ -88,6 +101,8 @@ $(document).ready(function () {
 
       renderMessages();
 
+// Creating/Sending a message
+
       $('#create_message').on('submit', function () {
         event.preventDefault();
         $.ajax({
@@ -108,6 +123,8 @@ $(document).ready(function () {
 
   $('.task').click(showTask);
 
+// When you click to take job
+
   var takeJob = function () {
     var taskId = $(this).attr('id');
     $.ajax({
@@ -127,7 +144,7 @@ $(document).ready(function () {
 
   var useMyLocation = function () {
     event.preventDefault();
-    var myLocation = $('#my_location').text();
+    var myLocation = $('#my_address').text();
     $('#task_to_name').val('Home');
     $('#task_to_address').val(myLocation);
   };
@@ -149,13 +166,15 @@ $(document).ready(function () {
       dataType: 'json',
     }).done(function (search) {
       places = search;
-
+      console.log(search)
       $('#places_blank').text('...Results');
       $('#places_blank').val('');
       for (i = 0; i < 5; i++) {
         $('#places_' + i).text(places[i]['name'])
         $('#places_' + i).val(places[i]['vicinity'])
       };
+
+// Auto Fill The Options from the Search Query
 
       var autoFillOption = function () {
         var name = $('#search_results option:selected').text();
@@ -167,13 +186,16 @@ $(document).ready(function () {
 
       $('#search_results').on('change', autoFillOption);
     });
+
   };
 
   $('#search_button').click(searchAddress);
 
-//
-
 });
+
+// Display Google Maps
+
+// Snazzy Maps
 
 var mapStyle = [{"featureType":"water","stylers":[{"color":"#021019"}]},{"featureType":"landscape","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"transit","stylers":[{"color":"#146474"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]}]
 
@@ -194,6 +216,8 @@ var display_map = function (lat, lng, zoom) {
 
 };
 
+// Adding Markers
+
 var add_marker = function (lat, lng, title, id) {
   var latlng = new google.maps.LatLng(lat, lng);
   var marker = new google.maps.Marker({
@@ -204,6 +228,8 @@ var add_marker = function (lat, lng, title, id) {
     icon: 'http://png-5.findicons.com/files/icons/2252/iphone_toolbar_icons/30/icon_paper_plane.png',
     id: id
   });
+
+// Event Listener for markers
 
   google.maps.event.addListener(marker, 'click', function() {
     map.setCenter(marker.getPosition());

@@ -71,6 +71,7 @@
             <div class='invisible' id='my_location'><%= @current_user.latitude %>,<%= @current_user.longitude %></div>
             <div class='invisible' id='my_latitude'><%= @current_user.latitude %></div>
             <div class='invisible' id='my_longitude'><%= @current_user.longitude %></div>
+            <div class='invisible' id='my_address'><%= @current_user.address %></div>
 
             <%= f.submit %>
           <% end %>
@@ -80,7 +81,7 @@
       <% else %>
 
         <div id='task_box'>
-          <%= image_tag 'https://cdn2.iconfinder.com/data/icons/color-svg-cloud-icons/512/cloud_delivery-512.png', :id => 'default_task_box' %>
+          <i class="fa fa-paper-plane fa-5x" id='default_task_box'></i>
         </div>
       <% end %>
 

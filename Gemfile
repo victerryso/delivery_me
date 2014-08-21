@@ -42,6 +42,7 @@ gem 'geocoder'
 gem 'haml'
 gem 'bcrypt'
 gem 'httparty'
+gem 'font-awesome-sass'
 
 group :development do
   gem "pry-rails"
