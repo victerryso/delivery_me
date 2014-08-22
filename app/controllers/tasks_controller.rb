@@ -9,7 +9,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.create task_params
-    @current_user.tasks << @task
+    # @current_user.tasks << @task
     render :json => @task
   end
 

@@ -9,16 +9,26 @@
 </head>
 <body>
 <header>
-  <a href='/'>
-    <h1>
-      <i class="fa fa-paper-plane"></i>
-      Deliver Me
-      <span>For lazy chumps</span>
-    </h1>
-  </a>
-  <div id='login_form'>
-    <%= render :partial => "/shared/login" %>
-  </div>
+  <table>
+    <tr>
+      <td>
+        <a href='/'>
+          <h1>
+            <i class="fa fa-paper-plane"></i>
+            Deliver Me
+            <span>For lazy chumps</span>
+          </h1>
+        </a>
+      </td>
+      <td id='gap'>
+      </td>
+      <td>
+        <div id='login_form'>
+          <%= render :partial => "/shared/login" %>
+        </div>
+      </td>
+    </tr>
+  </table>
 </header>
 
 <%= yield %>

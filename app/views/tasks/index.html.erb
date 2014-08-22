@@ -97,19 +97,16 @@
       <% end %>
         <tr>
           <td><%= image_tag task.user.image, :class => 'task_icon' %></td>
-          <td><strong><%= task.name %></strong>
-
-          <% if task.price %>
-            $<%= task.price %>
-          <% else %>
-            FREE
-          <% end %>
-          <br>
-
+          <td id='gap2'><strong><%= task.name %></strong><br>
           From: <%= task.from_name %><br>
-          To: <%=task.to_name %>
-
-        </td>
+          To: <%=task.to_name %></td>
+          <td class='price'>
+            <% if task.price %>
+              $<%= task.price %>
+            <% else %>
+              FREE
+            <% end %>
+          </td>
       </table>
     <% end %>
 

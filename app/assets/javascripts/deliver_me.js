@@ -90,7 +90,7 @@ $(document).ready(function () {
 
         if ($('#my_location').text() !== '') {
           text += '<form action="/messages" method="post" data-remote="true" id="create_message">'
-          text += "<textarea cols='39' id='content' placeholder='Message...'></textarea>"
+          text += "<textarea cols='39' id='content' placeholder='Message...'></textarea><br>"
           text += '<button>Send</button>'
           text += '</form>'
         };
@@ -132,7 +132,6 @@ $(document).ready(function () {
       dataType: 'json',
       method: 'put'
     }).done(function (task) {
-      console.log(task);
       var text = "<div class='job_taken' id=" + task.id + ">Too late, bro!</div>"
       $('.take_job').remove();
       $('#task_box').prepend(text);
@@ -166,7 +165,6 @@ $(document).ready(function () {
       dataType: 'json',
     }).done(function (search) {
       places = search;
-      console.log(search)
       $('#places_blank').text('...Results');
       $('#places_blank').val('');
       for (i = 0; i < 5; i++) {
@@ -178,7 +176,6 @@ $(document).ready(function () {
 
       var autoFillOption = function () {
         var name = $('#search_results option:selected').text();
-        console.log(name);
         var address = $('#search_results').val();
         $('#task_from_name').val(name);
         $('#task_from_address').val(address);
@@ -237,4 +234,3 @@ var add_marker = function (lat, lng, title, id) {
     $taskBox.trigger('click');
   });
 };
-

@@ -21,7 +21,7 @@ RSpec.describe User, :type => :model do
 
   before do
     @task = Task.new(:name => 'The Task')
-    @user = User.new(:email => 'user@email.com', :password => 'password', :password_confirmation => 'password', :name => 'User Man')
+    @user = User.new(:email => 'user@email.com', :password => 'password', :password_confirmation => 'password', :name => 'User Man', :address => 'Sydney')
     @message = Message.new(:content => 'The Content')
     @user.tasks << @task
     @user.messages << @message
@@ -37,6 +37,12 @@ RSpec.describe User, :type => :model do
 
   it 'should have many messages' do
     expect(@user.messages).to eq([@message])
+  end
+
+  it 'should geocode' do
+    @user.save
+    expect(@user.latitude).to eq(-33.8674869)
+    expect(@user.longitude).to eq(151.2069902)
   end
 
 end

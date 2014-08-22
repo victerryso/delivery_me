@@ -26,7 +26,7 @@ require 'rails_helper'
 RSpec.describe Task, :type => :model do
 
   before do
-    @task = Task.new(:name => 'The Task')
+    @task = Task.new(:name => 'The Task', :to_address => 'Sydney')
     @user = User.new(:email => 'user@email.com', :password => 'password', :password_confirmation => 'password', :name => 'User Man')
     @message = Message.new(:content => 'The Content')
     @user.tasks << @task
@@ -43,6 +43,12 @@ RSpec.describe Task, :type => :model do
 
   it 'should have a user' do
     expect(@task.user).to eq(@user)
+  end
+
+  it 'should geocode' do
+    @task.save
+    expect(@task.to_lat).to eq(-33.8674869)
+    expect(@task.to_lng).to eq(151.2069902)
   end
 
 end

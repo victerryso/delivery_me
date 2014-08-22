@@ -12,10 +12,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
 .invisible {
   display: none;
 }
@@ -28,9 +24,12 @@ header {
   margin-bottom: 1em;
 }
 
-header h1 {
-  display: inline-block;
-  width: 1200px;
+#gap {
+  width: 900px;
+}
+
+#gap2 {
+  width: 250px;
 }
 
 span {
@@ -150,4 +149,14 @@ select {
   object-fit: cover;
   border: 1px solid black;
   margin-right: 0.5em;
+}
+
+.price {
+  font-size: 2.25em;
+  width: 71px;
+  height: 71px;
+  text-align: center;
+  border-radius: 100%;
+  background-color: white;
+  color: #81D8CF;
 }
