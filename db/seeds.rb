@@ -5,13 +5,6 @@ Message.destroy_all
 u1 = User.create(:email => 'qwe@qwe.qwe', :password => 'qwe', :password_confirmation => 'qwe', :name => 'Snorlax', :image => 'http://cdn.meme.li/images/300x/574526.jpg', :address => 'Sydney NSW Australia')
 u2 = User.create(:email => 'asd@asd.asd', :password => 'asd', :password_confirmation => 'asd', :name => 'Groot', :image => 'http://radtitan.files.wordpress.com/2014/06/wp_20140622_003-001.jpg', :address => 'Melbourne VIC Australia')
 u3 = User.create(:email => 'zxc@zxc.zxc', :password => 'zxc', :password_confirmation => 'zxc', :name => 'Fish', :image => 'http://i1.kym-cdn.com/photos/images/newsfeed/000/082/456/Okay.png', :address => 'Cabramatta NSW Australia')
-u4 = User.create(:email => 'wer@wer.wer', :password => 'wer', :password_confirmation => 'wer', :name => 'Fish', :image => 'http://4.bp.blogspot.com/-6KIaaGtuel0/UUgjgdN-B7I/AAAAAAAAFUo/daG47b-sLNw/s1600/funny+fat+kid67.jpg', :address => 'Sydney NSW Australia')
-u5 = User.create(:email => 'ert@ert.ert', :password => 'ert', :password_confirmation => 'ert', :name => 'Fish', :image => 'http://hilarioustime.com/images/03/Give-me-more-food-funny-fat-Asian-kid.jpg', :address => 'Sydney NSW Australia')
-u6 = User.create(:email => 'rty@rty.rty', :password => 'rty', :password_confirmation => 'rty', :name => 'Fish', :image => 'http://7tattoo.files.wordpress.com/2010/03/daily_16.jpg', :address => 'Sydney NSW Australia')
-u7 = User.create(:email => 'tyu@tyu.tyu', :password => 'tyu', :password_confirmation => 'tyu', :name => 'Fish', :image => 'http://www.chinasmack.com/wp-content/uploads/2011/04/xiao-hao-chinese-4-year-old-fatty-boy-62kg-09-chicken-wing-560x769.jpg', :address => 'Sydney NSW Australia')
-u8 = User.create(:email => 'yui@yui.yui', :password => 'yui', :password_confirmation => 'yui', :name => 'Fish', :image => 'http://manolobig.com/wordpress/wp-content/uploads/2012/10/haters-gonna-hate-fat-chinese-kid.jpg', :address => 'Sydney NSW Australia')
-u9 = User.create(:email => 'uio@uio.uio', :password => 'uio', :password_confirmation => 'uio', :name => 'Fish', :image => 'http://i445.photobucket.com/albums/qq180/shilex12/walmart.jpg', :address => 'Sydney NSW Australia')
-u10 = User.create(:email => 'iop@iop.iop', :password => 'iop', :password_confirmation => 'iop', :name => 'Fish', :image => 'http://i.dailymail.co.uk/i/pix/2011/03/22/article-1368772-0B480CDE00000578-770_634x433.jpg', :address => 'Sydney NSW Australia')
 
 
 t1 = Task.new(:name => 'Bring me some chicken wings', :description => 'Kentucky Fried Chicken and a Pizza Hut. Macdonalds... Macdonalds...', :price => 10, :from_name => 'KFC', :from_address => '428 George St Sydney NSW', :to_name => 'The Rocks', :to_address => 'Chinatown Sydney NSW')
@@ -32,13 +25,13 @@ m3 = Message.new(:content => 'Grab me one too')
 u1.tasks << t1
 u2.tasks << t2
 u3.tasks << t3
-u4.tasks << t4
-u5.tasks << t5
-u6.tasks << t6
-u7.tasks << t7
-u8.tasks << t8
-u9.tasks << t9
-u10.tasks << t10
+u1.tasks << t4
+u1.tasks << t5
+u1.tasks << t6
+u1.tasks << t7
+u1.tasks << t8
+u1.tasks << t9
+u1.tasks << t10
 
 u1.messages << m1
 t2.messages << m1
