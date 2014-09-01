@@ -1,28 +1,13 @@
-== README
+== Deliver Me
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Be a Courier or Request Deliveries.
 
-Things you may want to cover:
+http://deliver-me.herokuapp.com
 
-* Ruby version
+Framework: Ruby on Rails
 
-* System dependencies
+Gems: Geocoder, RSpec, Factory Girl, Faker
 
-* Configuration
+APIs: Google Maps JS, Google Places
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Features: Snazzy Maps, Location Services, Chat Function, Search for Place, AJAX
